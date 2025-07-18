@@ -36,14 +36,19 @@ const romanNumeralKey = [1000, 900, 500, 400, 100, 90, 50, 40, 10, 9, 5, 4, 1, "
 romanButton.addEventListener("click", () => {
     let number = Number(romanInput.value);
     let romanNumeral = "";
-
-    for (let i = 0; i < romanNumeralKey.length/2; i++) {
-        if (number - romanNumeralKey[i] >= 0) {
-            number -= romanNumeralKey[i];
-            romanNumeral += romanNumeralKey[romanNumeralKey.length/2 + i];
-            console.log(romanNumeral + "     " + number);
+    if (!number) {
+        romanResult.textContent = "Please enter a valid number.";
+    } else if (number < 0) {
+        romanResult.textContent =  "Please enter a number greater than or equal to 1";
+    } else if (number > 3999) {
+        romanResult.textContent = "Please enter a number less than or equal to 3999";
+    } else {
+        for (let i = 0; i < romanNumeralKey.length/2; i++) {
+            while (number - romanNumeralKey[i] >= 0) {
+                number -= romanNumeralKey[i];
+                romanNumeral += romanNumeralKey[romanNumeralKey.length/2 + i];
+            }
         }
+        romanResult.textContent = romanNumeral;
     }
-
-
 });
